@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notesapp/widgets/notes_view_body.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -6,13 +7,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Notes App',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-      ),
+    return const Scaffold(
+      body: NotesViewBody(),
     );
   }
 }
