@@ -1,22 +1,45 @@
 import 'package:flutter/material.dart';
 
 class ColorItem extends StatelessWidget {
-  const ColorItem({super.key});
-
+  const ColorItem({super.key, required this.isActive, required this.color});
+  final bool isActive;
+  final Color color;
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.all(8.0),
-      child: CircleAvatar(
-        radius: 30,
-        backgroundColor: Colors.lightGreen,
-      ),
-    );
+    return isActive == true
+        ? CircleAvatar(
+            radius: 30,
+            backgroundColor: Color.fromARGB(255, 255, 255, 255),
+            child: CircleAvatar(
+              radius: 25,
+              backgroundColor: color,
+            ),
+          )
+        : CircleAvatar(
+            radius: 30,
+            backgroundColor: color,
+          );
   }
 }
 
-class ColorsListView extends StatelessWidget {
-  const ColorsListView({super.key});
+class ColorsListView extends StatefulWidget {
+  const ColorsListView({
+    super.key,
+  });
+
+  @override
+  State<ColorsListView> createState() => _ColorsListViewState();
+}
+
+class _ColorsListViewState extends State<ColorsListView> {
+  int currentIndex = 0;
+  List<Color> colors = const [
+    Color(0xff264653),
+    Color(0xff2a9d8f),
+    Color(0xffe9c46a),
+    Color(0xfff4a261),
+    Color(0xffe76f51),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +47,21 @@ class ColorsListView extends StatelessWidget {
       height: 76,
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: 10,
+          itemCount: colors.length,
           itemBuilder: (context, index) {
-            return const ColorItem();
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GestureDetector(
+                onTap: () {
+                  currentIndex = index;
+                  setState(() {});
+                },
+                child: ColorItem(
+                  color: colors[index],
+                  isActive: currentIndex == index,
+                ),
+              ),
+            );
           }),
     );
   }
