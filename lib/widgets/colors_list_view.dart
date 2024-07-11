@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notesapp/constants.dart';
 import 'package:notesapp/cubits/add_note/add_note_cubit.dart';
 
 class ColorItem extends StatelessWidget {
@@ -35,13 +36,6 @@ class ColorsListView extends StatefulWidget {
 
 class _ColorsListViewState extends State<ColorsListView> {
   int currentIndex = 0;
-  List<Color> colors = const [
-    Color(0xffccd5ae),
-    Color(0xffe9edc9),
-    Color(0xfffefae0),
-    Color(0xfffaedcd),
-    Color(0xffd4a373),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -49,18 +43,18 @@ class _ColorsListViewState extends State<ColorsListView> {
       height: 76,
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: colors.length,
+          itemCount: kColors.length,
           itemBuilder: (context, index) {
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: GestureDetector(
                 onTap: () {
                   currentIndex = index;
-                  BlocProvider.of<AddNoteCubit>(context).color = colors[index];
+                  BlocProvider.of<AddNoteCubit>(context).color = kColors[index];
                   setState(() {});
                 },
                 child: ColorItem(
-                  color: colors[index],
+                  color: kColors[index],
                   isActive: currentIndex == index,
                 ),
               ),
